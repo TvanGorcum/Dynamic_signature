@@ -66,7 +66,7 @@ Example:
 
 ```bash
 cd Documents
-git clone https://github.com/organization/repository-name.git](https://github.com/TvanGorcum/Dynamic_signature.git
+git clone https://github.com/TvanGorcum/Dynamic_signature.git
 cd repository-name
 ```
 
