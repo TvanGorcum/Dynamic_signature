@@ -53,57 +53,22 @@ git --version
 
 You can also install Git from <https://git-scm.com/download/mac>.
 
-### Linux
-
-Use your distribution's package manager.
-
-For Ubuntu or Debian:
-
-```bash
-sudo apt update
-sudo apt install git
-```
-
-For Fedora:
-
-```bash
-sudo dnf install git
-```
-
-For Arch Linux:
-
-```bash
-sudo pacman -S git
-```
-
-Confirm the installation:
-
-```bash
-git --version
-```
 
 ## 3. Clone the repository for the first time
 
 Ask the repository owner for the repository URL. It will usually look like one of these:
 
-```text
-https://github.com/organization/repository-name.git
-git@github.com:organization/repository-name.git
-```
-
-If you are not sure which one to use, choose the `https://...` URL.
+https://github.com/TvanGorcum/Dynamic_signature
 
 Choose where you want to store the repository, then run `git clone`.
-
+cd 
 Example:
 
 ```bash
 cd Documents
-git clone https://github.com/organization/repository-name.git
+git clone https://github.com/organization/repository-name.git](https://github.com/TvanGorcum/Dynamic_signature.git
 cd repository-name
 ```
-
-Replace `https://github.com/organization/repository-name.git` with the real repository URL.
 
 After cloning, you now have a local copy of the repository.
 
