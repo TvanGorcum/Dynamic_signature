@@ -11,6 +11,34 @@ import subprocess
 import sys
 from pathlib import Path
 
+def get_repo_dir() -> Path:
+    if getattr(sys, "frozen", False):
+        return Path(sys.executable).resolve().parent
+    return Path(__file__).resolve().parent
+
+
+def update_repo_from_github(repo_dir: Path) -> None:
+    if not (repo_dir / ".git").exists():
+        raise RuntimeError(f"No .git folder found in: {repo_dir}")
+
+    print("Updating signature files from GitHub...")
+
+    result = subprocess.run(
+        ["git", "-C", str(repo_dir), "pull", "--ff-only"],
+        capture_output=True,
+        text=True,
+        shell=False,
+    )
+
+    if result.returncode != 0:
+        raise RuntimeError(
+            "Git pull failed.\n"
+            f"Repo: {repo_dir}\n\n"
+            f"Output:\n{result.stdout}\n\n"
+            f"Error:\n{result.stderr}"
+        )
+
+    print(result.stdout)
 
 def app_dir() -> Path:
     if getattr(sys, "frozen", False):
@@ -129,6 +157,8 @@ def copy_signature(source: Path, destination: Path) -> None:
 
 
 def main() -> int:
+    repo_dir = get_repo_dir()
+    update_repo_from_github(repo_dir)
     args = parse_args()
     config_path = resolve_path(args.config)
     config = load_config(config_path)
