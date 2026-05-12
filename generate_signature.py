@@ -12,8 +12,14 @@ import sys
 from pathlib import Path
 
 
-REPO_ROOT = Path(__file__).resolve().parent
-DEFAULT_CONFIG_PATH = REPO_ROOT / "config.ini"
+def app_dir() -> Path:
+    if getattr(sys, "frozen", False):
+        return Path(sys.executable).parent
+    return Path(__file__).resolve().parent
+
+
+APP_DIR = app_dir()
+DEFAULT_CONFIG_PATH = APP_DIR / "config.ini"
 PLACEHOLDERS = {
     "name": "{{NAME}}",
     "function": "{{FUNCTION}}",
@@ -40,7 +46,7 @@ def parse_args() -> argparse.Namespace:
 def resolve_path(value: str) -> Path:
     path = Path(value).expanduser()
     if not path.is_absolute():
-        path = REPO_ROOT / path
+        path = APP_DIR / path
     return path
 
 
@@ -72,7 +78,7 @@ def pull_latest_template(allow_failure: bool) -> None:
     print("Running git pull --ff-only to update the local template...")
     result = subprocess.run(
         ["git", "pull", "--ff-only"],
-        cwd=REPO_ROOT,
+        cwd=APP_DIR,
         text=True,
         capture_output=True,
         check=False,
